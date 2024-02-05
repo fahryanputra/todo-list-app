@@ -1,5 +1,5 @@
 # todo-list-app
 A to do list application using javascript
 
-## PUML diagram
-[[Diagram Image Link](http://tinyurl.com/2b2nets5)](http://tinyurl.com/2b2nets5)
+## PUML class diagram
+[Click to Open Interactive Diagram](http://tinyurl.com/27mxxelg)<!--[Click to Open Interactive Diagram](./puml/todo-list-app.puml)-->
