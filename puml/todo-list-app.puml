@@ -1,8 +1,53 @@
-@startuml
+@startuml todo-list-app
+
+skinparam classAttributeIconSize 0
+
+Project *-- "0..*" Task : contains
+TodoList *-- "1..*" Project : contains
+
 
 class Task {
-    -title:string
-    -description:string
+    -title : string
+    -description : string
+    -date : string
+    -priority : int
+    __
+    -formatDate()
+    .. getter ..
+    +getTitle()
+    +getDescription()
+    +getDate()
+    +getPriority()
+    .. setter ..
+    -setTitle()
+    -setDescription()
+    -setDate()
+    -setPriority()
+}
+
+class Project {
+    -name : string
+    -tasks : Task[0..*]
+    __
+    -addTask()
+    -deleteTask()
+    .. getter ..
+    +getName()
+    +getTasks()
+    .. setter ..
+    -setName()
+    -setTasks()
+}
+
+class TodoList {
+    -projects : Project[1..*]
+    __
+    -addProject()
+    -deleteProject
+    .. getter ..
+    +getProjects()
+    .. setter ..
+    -setProjects()
 }
 
 @enduml
