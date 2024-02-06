@@ -12,7 +12,6 @@ class Task {
     -date : string
     -priority : int
     __
-    -formatDate()
     .. getter ..
     +getTitle()
     +getDescription()
@@ -43,7 +42,7 @@ class TodoList {
     -projects : Project[1..*]
     __
     -addProject()
-    -deleteProject
+    -deleteProject()
     .. getter ..
     +getProjects()
     .. setter ..
