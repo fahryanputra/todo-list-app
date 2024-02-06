@@ -46,6 +46,7 @@ class TodoList {
     -deleteProject()
     .. getter ..
     +getProjects()
+    +getProject()
     .. setter ..
     -setProjects()
 }
