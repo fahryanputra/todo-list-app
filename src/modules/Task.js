@@ -1,9 +1,9 @@
 class Task {
-    constructor(title, description, date = "No Date", priority) {
+    constructor(title) {
         this.title = title;
-        this.description = description;
-        this.date = date;
-        this.priority = priority
+        this.description = "No description";
+        this.date = "No date";
+        this.priority = 0;
     };
 
     // Getter
