@@ -33,6 +33,7 @@ class Project {
     .. getter ..
     +getName()
     +getTasks()
+    +getTask()
     .. setter ..
     -setName()
     -setTasks()
