@@ -30,7 +30,6 @@ module.exports = {
             filename: "index.html",
             inject: "head",
             scriptLoading: "defer",
-            title: "To Do List",
         }),
     ],
     resolve: {

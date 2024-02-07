@@ -1,6 +1,9 @@
+import Project from "Modules/Project";
+
 class TodoList {
     constructor() {
         this.projects = [];
+        this.projects.push(new Project("Inbox"));
     };
 
     addProject(newProject) {
