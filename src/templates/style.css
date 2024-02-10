@@ -33,11 +33,12 @@
   'opsz' 24;
 }
 
-
 /* Button */
 button {
+    border: 2px solid var(--font-dark);
+    border-radius: 5px;
+    padding: 0 var(--space-small);
     background-color: rgba(0, 0, 0, 0);
-    border: none;
     font-size: var(--font-small);
     font-weight: bold;
     display: flex;
@@ -90,6 +91,30 @@ header .material-symbols-rounded {
 .sidebar > p {
     font-size: var(--font-medium);
     font-weight: bold;
+}
+
+.sidebar > .project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar > .project-form > input {
+    width: 100%;
+    font-size: var(--font-small);
+    border: 2px solid var(--font-dark);
+    border-radius: 5px;
+}
+
+.sidebar > .project-form > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sidebar > .project-form > div > button {
+    width: 50%;
 }
 
 .project {
