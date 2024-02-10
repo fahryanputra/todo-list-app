@@ -117,6 +117,12 @@ header .material-symbols-rounded {
     width: 50%;
 }
 
+.project-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-small);
+}
+
 .project {
     display: flex;
     align-items: center;

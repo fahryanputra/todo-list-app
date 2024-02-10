@@ -1,23 +1,45 @@
 import { createText, createIcon, createAddButton } from "Utilities/utility";
+import TodoList from "Modules/TodoList";
 
 function renderSidebar() {
+    const todoList = new TodoList();
+
     const defaultProjectContainer = renderProjectContainer("default");
     const customProjectContainer = renderProjectContainer("custom");
-    const inboxProject = renderProject("Inbox", "inbox");
-    const sampleProject = renderProject("Sample Project", "checklist");
-    defaultProjectContainer.appendChild(inboxProject);
-    customProjectContainer.appendChild(sampleProject);
+    const projectContainers = [];
+
+    projectContainers.push(defaultProjectContainer);
+    projectContainers.push(customProjectContainer);
+
+    const projects = renderProjects(todoList, projectContainers);
 
     const divider = createText("Projects");
     
-    const addProjectContainer = renderAddProjectButton();
+    const addProjectContainer = renderAddProjectButton(todoList, projectContainers);
 
     const sidebar = document.querySelector(".sidebar");
-    sidebar.appendChild(defaultProjectContainer);
+    sidebar.appendChild(projects[0]);
     sidebar.appendChild(divider);
-    sidebar.appendChild(customProjectContainer);
+    sidebar.appendChild(projects[1]);
     sidebar.appendChild(addProjectContainer);
 
+}
+
+function renderProjects(todoList, containers) {
+    containers.forEach(element => {
+        element.textContent = "";
+    });
+
+    todoList.getProjects().forEach(element => {
+        const project = renderProject(element.getName(), element.getIcon());
+        if(element.getIsDefault() === true) {
+            containers[0].appendChild(project);
+        } else {
+            containers[1].appendChild(project);
+        };
+    });
+
+    return containers;
 }
 
 function renderProjectContainer(name) {
@@ -37,13 +59,13 @@ function renderProject(title, icon) {
     return container;
 }
 
-function renderAddProjectButton() {
+function renderAddProjectButton(todoList, projectContainers) {
     const container = document.createElement("div");
     container.classList.add("btn-container");
 
     const button = createAddButton("Add Project");
     button.addEventListener("click", () => {
-        container.replaceWith(renderAddProjectForm());
+        container.replaceWith(renderAddProjectForm(todoList, projectContainers));
     });
 
     container.appendChild(button);
@@ -51,7 +73,7 @@ function renderAddProjectButton() {
     return container;
 }
 
-function renderAddProjectForm() {
+function renderAddProjectForm(todoList, projectContainers) {
     const container = document.createElement("div");
     container.classList.add("project-form");
 
@@ -61,13 +83,23 @@ function renderAddProjectForm() {
     const addButton = document.createElement("button");
     addButton.textContent = "Add";
     addButton.addEventListener("click", () => {
-        container.replaceWith(renderAddProjectButton());
+        if(input.value === "") {
+            alert("Project name can't be empty.");
+            return;
+        };
+        const newProject = todoList.addProject(input.value)
+        if( newProject === 0) {
+            alert("Project already exists!");
+            return;
+        };
+        renderProjects(todoList, projectContainers);
+        container.replaceWith(renderAddProjectButton(todoList, projectContainers));
     });
 
     const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
+    deleteButton.textContent = "Cancel";
     deleteButton.addEventListener("click", () => {
-        container.replaceWith(renderAddProjectButton());
+        container.replaceWith(renderAddProjectButton(todoList, projectContainers));
     });
 
     const buttonContainer = document.createElement("div");

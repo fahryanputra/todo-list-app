@@ -3,14 +3,14 @@ import Project from "Modules/Project";
 class TodoList {
     constructor() {
         this.projects = [];
-        this.projects.push(new Project("Inbox"));
+        this.projects.push(new Project("Inbox", true, "inbox"));
     };
 
-    addProject(newProject) {
-        if(this.projects.find((project) => project.getName() === newProject.getName())) {
-            return;
+    addProject(projectName) {
+        if(this.projects.find((project) => project.getName() === projectName)) {
+            return 0;
         }
-        this.projects.push(newProject);
+        this.projects.push(new Project(projectName));
     };
 
     deleteProject(projectName) {
