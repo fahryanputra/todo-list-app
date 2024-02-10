@@ -25,23 +25,6 @@ function renderSidebar() {
 
 }
 
-function renderProjects(todoList, projectContainers) {
-    projectContainers.forEach(element => {
-        element.textContent = "";
-    });
-
-    todoList.getProjects().forEach(element => {
-        const project = renderProject(element.getName(), element.getIcon());
-        if(element.getIsDefault() === true) {
-            projectContainers[0].appendChild(project);
-        } else {
-            projectContainers[1].appendChild(project);
-        };
-    });
-
-    return projectContainers;
-}
-
 function renderProjectContainer(name) {
     const container = document.createElement("div");
     container.classList.add(name, "project-container");
@@ -57,6 +40,32 @@ function renderProject(title, icon) {
     container.appendChild(createText(title));
 
     return container;
+}
+
+function renderProjects(todoList, projectContainers) {
+    projectContainers.forEach(element => {
+        element.textContent = "";
+    });
+
+    todoList.getProjects().forEach(element => {
+        const project = renderProject(element.getName(), element.getIcon(), element.getIsDefault());
+        if(element.getIsDefault() === true) {
+            projectContainers[0].appendChild(project);
+        } else {
+            const deleteContainer = document.createElement("div")
+            deleteContainer.appendChild(createIcon("delete"));
+
+            deleteContainer.addEventListener("click", () => {
+                todoList.deleteProject(element.getName());
+                projectContainers[1].replaceWith(renderProjects(todoList, projectContainers)[1])
+            });
+
+            project.appendChild(deleteContainer);
+            projectContainers[1].appendChild(project);
+        };
+    });
+
+    return projectContainers;
 }
 
 function renderAddProjectButton(todoList, projectContainers) {
