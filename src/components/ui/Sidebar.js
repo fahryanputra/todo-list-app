@@ -25,21 +25,21 @@ function renderSidebar() {
 
 }
 
-function renderProjects(todoList, containers) {
-    containers.forEach(element => {
+function renderProjects(todoList, projectContainers) {
+    projectContainers.forEach(element => {
         element.textContent = "";
     });
 
     todoList.getProjects().forEach(element => {
         const project = renderProject(element.getName(), element.getIcon());
         if(element.getIsDefault() === true) {
-            containers[0].appendChild(project);
+            projectContainers[0].appendChild(project);
         } else {
-            containers[1].appendChild(project);
+            projectContainers[1].appendChild(project);
         };
     });
 
-    return containers;
+    return projectContainers;
 }
 
 function renderProjectContainer(name) {
