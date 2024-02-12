@@ -23,6 +23,11 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
 /* Google Material Icon */
 
 .material-symbols-rounded {
@@ -125,7 +130,7 @@ header .material-symbols-rounded {
     gap: var(--space-small);
 }
 
-.project {
+.project, .task {
     display: flex;
     align-items: center;
     width: 100%;
@@ -137,13 +142,13 @@ header .material-symbols-rounded {
     padding: 5px;
 }
 
-.project > p {
+.project > p, .task > p {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
-.project:hover {
+.project:hover, .task:hover {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
 }
@@ -160,7 +165,7 @@ header .material-symbols-rounded {
     cursor: pointer;
 }
 
-.project:hover > div:hover > .material-symbols-rounded {
+.project:hover > div:hover > .material-symbols-rounded, .task:hover > .right-panel > .material-symbols-rounded:hover {
     font-variation-settings:
     'FILL' 1;
 }
@@ -190,6 +195,8 @@ header .material-symbols-rounded {
     padding: var(--space-medium) 8rem;
     background-color: var(--background-light);
     color: var(--font-dark);
+    height: 100%;
+    overflow-y: auto;
 }
 
 .main > button {
