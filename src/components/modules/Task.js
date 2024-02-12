@@ -1,12 +1,27 @@
 class Task {
     constructor(title) {
+        this.id = Task.incrementId();
         this.title = title;
         this.description = "No description";
         this.date = "No date";
         this.priority = 0;
     };
 
+    static incrementId() {
+        if(!this.lastId) {
+            this.lastId = 1
+        } else {
+            this.lastId++;
+        }
+        
+        return this.lastId;
+    }
+
     // Getter
+    getId() {
+        return this.id;
+    }
+
     getTitle() {
         return this.title;
     };
@@ -24,6 +39,10 @@ class Task {
     };
 
     // Setter
+    setId(id) {
+        this.id = id;
+    }
+
     setTitle(title) {
         this.title = title;
     };

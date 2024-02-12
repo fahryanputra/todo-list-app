@@ -113,15 +113,15 @@ function renderAddProjectForm(todoList, projectContainers) {
         container.replaceWith(renderAddProjectButton(todoList, projectContainers));
     });
 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Cancel";
-    deleteButton.addEventListener("click", () => {
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener("click", () => {
         container.replaceWith(renderAddProjectButton(todoList, projectContainers));
     });
 
     const buttonContainer = document.createElement("div");
     buttonContainer.appendChild(addButton);
-    buttonContainer.appendChild(deleteButton);
+    buttonContainer.appendChild(cancelButton);
 
     container.appendChild(input)
     container.appendChild(buttonContainer);

@@ -12,8 +12,8 @@ class Project {
         this.tasks.push(new Task(newTask));
     };
 
-    deleteTask(taskTitle) {
-        this.tasks = this.tasks.filter((task) => task.getTitle() !== taskTitle);
+    deleteTask(taskId) {
+        this.tasks = this.tasks.filter((task) => task.getId() !== taskId);
     };
 
     // Getter

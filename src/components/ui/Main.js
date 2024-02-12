@@ -26,12 +26,12 @@ function renderMain(project) {
 function renderTasks(project, container) {
     container.textContent = "";
     project.getTasks().forEach(element => {
-        const task = renderTask(element);
+        const task = renderTask(project, element, container);
         container.appendChild(task);
     });
 }
 
-function renderTask(task) {
+function renderTask(project, task, tasksContainer) {
     const container = document.createElement("div");
     container.classList.add("task");
     
@@ -43,7 +43,12 @@ function renderTask(task) {
     const rightPanel = document.createElement("div");
     rightPanel.classList.add("right-panel");
     rightPanel.appendChild(createText(task.getDate()));
-    rightPanel.appendChild(createIcon("delete"));
+    const deleteButton = createIcon("delete");
+    deleteButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        deleteTask(project, task, tasksContainer);
+    });
+    rightPanel.appendChild(deleteButton);
 
     container.appendChild(leftPanel);
     container.appendChild(rightPanel);
@@ -53,6 +58,12 @@ function renderTask(task) {
 
 function addTask(project) {
     project.addTask(`${project.getName()} Sample task`);
+    console.log(project);
+}
+
+function deleteTask(project, task, container) {
+    project.deleteTask(task.getId());
+    renderTasks(project, container);
 }
 
 export default renderMain;
