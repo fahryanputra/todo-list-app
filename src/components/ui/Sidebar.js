@@ -1,5 +1,6 @@
 import { createText, createIcon, createAddButton } from "Utilities/utility";
 import TodoList from "Modules/TodoList";
+import renderMain from "UI/Main";
 
 function renderSidebar() {
     const todoList = new TodoList();
@@ -49,13 +50,20 @@ function renderProjects(todoList, projectContainers) {
 
     todoList.getProjects().forEach(element => {
         const project = renderProject(element.getName(), element.getIcon(), element.getIsDefault());
+
+        project.addEventListener("click", () => {
+            renderMain(todoList.getProject(element.getName()));
+        });
+
         if(element.getIsDefault() === true) {
             projectContainers[0].appendChild(project);
         } else {
             const deleteContainer = document.createElement("div")
             deleteContainer.appendChild(createIcon("delete"));
 
-            deleteContainer.addEventListener("click", () => {
+            deleteContainer.addEventListener("click", (e) => {
+                e.stopPropagation();
+                renderMain(todoList.getProject("Inbox"));
                 todoList.deleteProject(element.getName());
                 projectContainers[1].replaceWith(renderProjects(todoList, projectContainers)[1])
             });
