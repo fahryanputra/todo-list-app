@@ -13,6 +13,10 @@ function renderMain(project) {
     renderTasks(project, taskContainer);
 
     const addTaskButton = createAddButton("Add Task");
+    addTaskButton.addEventListener("click", () => {
+       addTask(project);
+       renderTasks(project, taskContainer);
+    });
 
     main.appendChild(projectName);
     main.appendChild(taskContainer);
@@ -20,6 +24,7 @@ function renderMain(project) {
 }
 
 function renderTasks(project, container) {
+    container.textContent = "";
     project.getTasks().forEach(element => {
         const task = renderTask(element);
         container.appendChild(task);
@@ -44,6 +49,10 @@ function renderTask(task) {
     container.appendChild(rightPanel);
 
     return container;
+}
+
+function addTask(project) {
+    project.addTask(`${project.getName()} Sample task`);
 }
 
 export default renderMain;

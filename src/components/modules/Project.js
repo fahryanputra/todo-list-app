@@ -1,3 +1,5 @@
+import Task from "Modules/Task";
+
 class Project {
     constructor(name, isDefault = false, icon = "checklist") {
         this.name = name;
@@ -7,10 +9,7 @@ class Project {
     };
 
     addTask(newTask) {
-        if (this.tasks.find((task) => task.getTitle() === newTask.getTitle())) {
-                return;
-        };
-        this.tasks.push(newTask);
+        this.tasks.push(new Task(newTask));
     };
 
     deleteTask(taskTitle) {
