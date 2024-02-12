@@ -1,4 +1,3 @@
-import renderSidebar from "./components/ui/Sidebar";
-import "./templates/style.css";
+import UI from "UI/UI";
 
-renderSidebar();
+document.addEventListener('DOMContentLoaded', UI.renderHomepage);
