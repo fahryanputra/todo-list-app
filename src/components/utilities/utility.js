@@ -55,6 +55,11 @@ function createAddButton(text) {
     return button;
 }
 
+// Create form element with labels
+function createFormWithLabel() {
+    
+}
+
 export {
     createText,
     createImage,

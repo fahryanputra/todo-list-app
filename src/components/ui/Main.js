@@ -12,15 +12,14 @@ function renderMain(project) {
 
     renderTasks(project, taskContainer);
 
-    const addTaskButton = createAddButton("Add Task");
-    addTaskButton.addEventListener("click", () => {
-       addTask(project);
-       renderTasks(project, taskContainer);
-    });
+    const buttonContainer = document.createElement("div");
+    const addTaskButton = renderAddTaskButton(project, taskContainer, buttonContainer);
+
+    buttonContainer.appendChild(addTaskButton);
 
     main.appendChild(projectName);
     main.appendChild(taskContainer);
-    main.appendChild(addTaskButton);
+    main.appendChild(buttonContainer);
 }
 
 function renderTasks(project, container) {
@@ -54,6 +53,52 @@ function renderTask(project, task, tasksContainer) {
     container.appendChild(rightPanel);
 
     return container;
+}
+
+function renderAddTaskForm(project, taskContainer, parentContainer) {
+    const form = document.createElement("div");
+    form.setAttribute("id", "task-form");
+
+    const title = document.createElement("input");
+    title.setAttribute("type", "text");
+    title.setAttribute("id", "task-title")
+    const titleLabel = document.createElement("label");
+    titleLabel.textContent = "Title";
+    titleLabel.setAttribute("for", "task-title");
+
+    const titleContainer = document.createElement("div");
+    titleContainer.appendChild(titleLabel);
+    titleContainer.appendChild(title)
+
+    const addButton = document.createElement("button");
+    addButton.textContent = "Add Task";
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener("click", () => {
+        const addTaskButton = renderAddTaskButton(project, taskContainer, parentContainer);
+        parentContainer.textContent = "";
+        parentContainer.appendChild(addTaskButton);
+    });
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.setAttribute("class", "btn-container");
+    buttonContainer.appendChild(addButton);
+    buttonContainer.appendChild(cancelButton);
+
+    form.appendChild(titleContainer)
+    form.appendChild(buttonContainer);
+
+    parentContainer.textContent = "";
+    return parentContainer.appendChild(form);
+}
+
+function renderAddTaskButton(project, taskContainer, buttonContainer) {
+    const addTaskButton = createAddButton("Add Task");
+    addTaskButton.addEventListener("click", () => {
+       renderAddTaskForm(project, taskContainer, buttonContainer);
+    });
+
+    return addTaskButton;
 }
 
 function addTask(project) {

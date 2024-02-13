@@ -94,17 +94,17 @@ function renderAddProjectForm(todoList, projectContainers) {
     const container = document.createElement("div");
     container.classList.add("project-form");
 
-    const input = document.createElement("input");
-    input.setAttribute("type", "text");
+    const title = document.createElement("input");
+    title.setAttribute("type", "text");
 
     const addButton = document.createElement("button");
     addButton.textContent = "Add";
     addButton.addEventListener("click", () => {
-        if(input.value === "") {
+        if(title.value === "") {
             alert("Project name can't be empty.");
             return;
         };
-        const newProject = todoList.addProject(input.value)
+        const newProject = todoList.addProject(title.value)
         if( newProject === 0) {
             alert("Project already exists!");
             return;
@@ -120,10 +120,11 @@ function renderAddProjectForm(todoList, projectContainers) {
     });
 
     const buttonContainer = document.createElement("div");
+    buttonContainer.setAttribute("class", "btn-container")
     buttonContainer.appendChild(addButton);
     buttonContainer.appendChild(cancelButton);
 
-    container.appendChild(input)
+    container.appendChild(title)
     container.appendChild(buttonContainer);
 
     return container;

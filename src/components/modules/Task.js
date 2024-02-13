@@ -4,7 +4,7 @@ class Task {
         this.title = title;
         this.description = "No description";
         this.date = "No date";
-        this.priority = 0;
+        this.priority = 2;
     };
 
     static incrementId() {
