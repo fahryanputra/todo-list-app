@@ -7,12 +7,15 @@ TodoList *-- "1..*" Project : contains
 
 
 class Task {
+    -id: int
     -title : string
     -description : string
     -date : string
     -priority : int
     __
+    -incrementId()
     .. getter ..
+    +getId()
     +getTitle()
     +getDescription()
     +getDate()
@@ -26,16 +29,22 @@ class Task {
 
 class Project {
     -name : string
+    -isDefault: bool
+    -icon: string
     -tasks : Task[0..*]
     __
     -addTask()
     -deleteTask()
     .. getter ..
     +getName()
+    +getIsDefault()
+    +getIcon()
     +getTasks()
     +getTask()
     .. setter ..
     -setName()
+    -setIsDefault()
+    -setIcon()
     -setTasks()
 }
 

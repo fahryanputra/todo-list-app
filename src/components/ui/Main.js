@@ -58,7 +58,6 @@ function renderTask(project, task, tasksContainer) {
 
 function addTask(project) {
     project.addTask(`${project.getName()} Sample task`);
-    console.log(project);
 }
 
 function deleteTask(project, task, container) {

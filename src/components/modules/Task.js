@@ -39,10 +39,6 @@ class Task {
     };
 
     // Setter
-    setId(id) {
-        this.id = id;
-    }
-
     setTitle(title) {
         this.title = title;
     };
