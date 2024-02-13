@@ -70,14 +70,25 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
     titleContainer.appendChild(titleLabel);
     titleContainer.appendChild(title)
 
+    const addTaskButton = renderAddTaskButton(project, taskContainer, parentContainer);
     const addButton = document.createElement("button");
     addButton.textContent = "Add Task";
+    addButton.addEventListener("click", () => {
+        if(title.value === "") {
+            alert("Task title can't be empty!");
+            return;
+        };
+        const newTask = project.addTask(title.value);
+        renderTasks(project, taskContainer);
+        parentContainer.textContent = "";
+        return parentContainer.appendChild(addTaskButton);
+    });
+
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
     cancelButton.addEventListener("click", () => {
-        const addTaskButton = renderAddTaskButton(project, taskContainer, parentContainer);
         parentContainer.textContent = "";
-        parentContainer.appendChild(addTaskButton);
+        return parentContainer.appendChild(addTaskButton);
     });
 
     const buttonContainer = document.createElement("div");
