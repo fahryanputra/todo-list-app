@@ -253,6 +253,24 @@ header .material-symbols-rounded {
     justify-content: flex-end;
 }
 
+#task-form > .date-priority-container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-large);
+}
+
+.date-priority-container > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-container {
+    margin-top: 0;
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-small);
+}
+
 /* Footer */
 
 footer {

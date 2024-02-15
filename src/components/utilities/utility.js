@@ -56,8 +56,29 @@ function createAddButton(text) {
 }
 
 // Create form element with labels
-function createFormWithLabel() {
-    
+const createFormWithLabel = {
+    createForm(element, text) {
+        const form = document.createElement(element);
+        form.setAttribute("id", `task-${text.toLocaleLowerCase()}`);
+
+        return form;
+    },
+
+    createLabel(text) {
+        const titleLabel = document.createElement("label");
+        titleLabel.textContent = text;
+        titleLabel.setAttribute("for", `task-${text.toLocaleLowerCase()}`);
+
+        return titleLabel;
+    },
+};
+
+function createDropDownOption(value, text) {
+    const option = document.createElement("option");
+    option.setAttribute("value", value);
+    option.textContent = text;
+
+    return option;
 }
 
 export {
@@ -65,4 +86,6 @@ export {
     createImage,
     createIcon,
     createAddButton,
+    createFormWithLabel,
+    createDropDownOption,
 };

@@ -1,4 +1,5 @@
 import { createText, createIcon, createAddButton } from "Utilities/utility";
+import { createDropDownOption, createFormWithLabel, createRadioButton, formWithLabel } from "../utilities/utility";
 
 function renderMain(project) {
     const main = document.querySelector(".main");
@@ -28,6 +29,7 @@ function renderTasks(project, container) {
         const task = renderTask(project, element, container);
         container.appendChild(task);
     });
+    console.log(project);
 }
 
 function renderTask(project, task, tasksContainer) {
@@ -59,16 +61,43 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
     const form = document.createElement("div");
     form.setAttribute("id", "task-form");
 
-    const title = document.createElement("input");
+    const title = createFormWithLabel.createForm("input", "Title");
     title.setAttribute("type", "text");
-    title.setAttribute("id", "task-title")
-    const titleLabel = document.createElement("label");
-    titleLabel.textContent = "Title";
-    titleLabel.setAttribute("for", "task-title");
-
+    const titleLabel = createFormWithLabel.createLabel("Title");
     const titleContainer = document.createElement("div");
     titleContainer.appendChild(titleLabel);
     titleContainer.appendChild(title)
+
+    const description = createFormWithLabel.createForm("textarea", "Description")
+    const descriptionLabel = createFormWithLabel.createLabel("Description");
+    const descriptionContainer = document.createElement("div");
+    descriptionContainer.appendChild(descriptionLabel);
+    descriptionContainer.appendChild(description);
+
+    const date = createFormWithLabel.createForm("input", "Date");
+    date.setAttribute("type", "date");
+    const dateLabel = createFormWithLabel.createLabel("Date");
+    const dateContainer = document.createElement("div");
+    dateContainer.appendChild(dateLabel);
+    dateContainer.appendChild(date);
+
+    const priority = createFormWithLabel.createForm("select", "Priority");
+    const priorityLabel = createFormWithLabel.createLabel("Priority");
+    const lowPriority = createDropDownOption(0, "Low");
+    const mediumPriority = createDropDownOption(1, "Medium");
+    const highPriority = createDropDownOption(2, "High");
+    priority.appendChild(lowPriority);
+    priority.appendChild(mediumPriority);
+    priority.appendChild(highPriority);
+    const priorityContainer = document.createElement("div");
+    priorityContainer.classList.add("select-container");
+    priorityContainer.appendChild(priorityLabel);
+    priorityContainer.appendChild(priority);
+
+    const dateAndPriorityContainer = document.createElement("div");
+    dateAndPriorityContainer.classList.add("date-priority-container");
+    dateAndPriorityContainer.appendChild(dateContainer);
+    dateAndPriorityContainer.appendChild(priorityContainer);
 
     const addTaskButton = renderAddTaskButton(project, taskContainer, parentContainer);
     const addButton = document.createElement("button");
@@ -78,7 +107,7 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
             alert("Task title can't be empty!");
             return;
         };
-        const newTask = project.addTask(title.value);
+        const newTask = project.addTask(title.value, description.value, date.value, +priority.value);
         renderTasks(project, taskContainer);
         parentContainer.textContent = "";
         return parentContainer.appendChild(addTaskButton);
@@ -96,7 +125,9 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
     buttonContainer.appendChild(addButton);
     buttonContainer.appendChild(cancelButton);
 
-    form.appendChild(titleContainer)
+    form.appendChild(titleContainer);
+    form.appendChild(descriptionContainer);
+    form.appendChild(dateAndPriorityContainer);
     form.appendChild(buttonContainer);
 
     parentContainer.textContent = "";
@@ -110,10 +141,6 @@ function renderAddTaskButton(project, taskContainer, buttonContainer) {
     });
 
     return addTaskButton;
-}
-
-function addTask(project) {
-    project.addTask(`${project.getName()} Sample task`);
 }
 
 function deleteTask(project, task, container) {

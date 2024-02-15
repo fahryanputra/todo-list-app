@@ -8,8 +8,8 @@ class Project {
         this.tasks = [];
     };
 
-    addTask(newTask) {
-        this.tasks.push(new Task(newTask));
+    addTask(title, description, date, priority) {
+        this.tasks.push(new Task(title, description, date, priority));
     };
 
     deleteTask(taskId) {
