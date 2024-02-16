@@ -68,21 +68,7 @@ function renderTaskDetail(project, task, tasksContainer, taskContainer) {
     const description = createText(task.getDescription());
     const descriptionDivider = document.createElement("hr");
     const date = createText(`Due: ${task.getDate()}`);
-    let priority = task.getPriority();
-    switch(priority) {
-        case 0:
-            priority = createText("Priority: Low");
-            break;
-        case 1:
-            priority = createText("Priority: Medium");
-            break;
-        case 2:
-            priority = createText("Priority: High");
-            break;
-        default:
-            priority = createText("Priority: Low");            
-            break;
-    };
+    const priority = createText(`Priority: ${task.getPriority()}`);
 
     const datePriorityContainer = document.createElement("div");
     datePriorityContainer.appendChild(date);
@@ -133,9 +119,9 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
 
     const priority = createFormWithLabel.createForm("select", "Priority");
     const priorityLabel = createFormWithLabel.createLabel("Priority");
-    const lowPriority = createDropDownOption(0, "Low");
-    const mediumPriority = createDropDownOption(1, "Medium");
-    const highPriority = createDropDownOption(2, "High");
+    const lowPriority = createDropDownOption("Low");
+    const mediumPriority = createDropDownOption("Medium");
+    const highPriority = createDropDownOption("High");
     priority.appendChild(lowPriority);
     priority.appendChild(mediumPriority);
     priority.appendChild(highPriority);
@@ -156,7 +142,19 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
             alert("Task title can't be empty!");
             return;
         };
-        project.addTask(title.value, description.value, date.value, +priority.value);
+
+        project.addTask(title.value);
+        const task = project.getTask(title.value);
+        if(description.value !== "") {
+            task.setDescription(description.value);
+        }
+        if(date.value !== "") {
+            task.setDate(date.value);
+        }
+        if(priority.value !== "") {
+            task.setPriority(priority.value);
+        }
+
         renderTasks(project, taskContainer);
         parentContainer.textContent = "";
         return parentContainer.appendChild(addTaskButton);

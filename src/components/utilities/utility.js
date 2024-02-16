@@ -73,9 +73,9 @@ const createFormWithLabel = {
     },
 };
 
-function createDropDownOption(value, text) {
+function createDropDownOption(text) {
     const option = document.createElement("option");
-    option.setAttribute("value", value);
+    option.setAttribute("value", text);
     option.textContent = text;
 
     return option;
