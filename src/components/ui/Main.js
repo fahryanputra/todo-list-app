@@ -1,5 +1,5 @@
 import { createText, createIcon, createButtonWithIcon } from "Utilities/utility";
-import { createDropDownOption, createFormWithLabel, createRadioButton, formWithLabel } from "../utilities/utility";
+import { createDropDownOption, createFormWithLabel} from "../utilities/utility";
 
 function renderMain(project) {
     const main = document.querySelector(".main");
@@ -35,7 +35,7 @@ function renderTask(project, task, tasksContainer) {
     const container = document.createElement("div");
     container.classList.add("task");
     container.addEventListener("click", () => {
-        container.replaceWith(renderTaskDetail(project, task, tasksContainer, container));
+        container.replaceWith(renderTaskDetail(task, container));
     });
     
     const leftPanel = document.createElement("div");
@@ -59,7 +59,7 @@ function renderTask(project, task, tasksContainer) {
     return container;
 }
 
-function renderTaskDetail(project, task, tasksContainer, taskContainer) {
+function renderTaskDetail(task, taskContainer) {
     const container = document.createElement("div");
     container.classList.add("task-detail");
     
