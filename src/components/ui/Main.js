@@ -1,4 +1,4 @@
-import { createText, createIcon, createAddButton } from "Utilities/utility";
+import { createText, createIcon, createButtonWithIcon } from "Utilities/utility";
 import { createDropDownOption, createFormWithLabel, createRadioButton, formWithLabel } from "../utilities/utility";
 
 function renderMain(project) {
@@ -29,12 +29,14 @@ function renderTasks(project, container) {
         const task = renderTask(project, element, container);
         container.appendChild(task);
     });
-    console.log(project);
 }
 
 function renderTask(project, task, tasksContainer) {
     const container = document.createElement("div");
     container.classList.add("task");
+    container.addEventListener("click", () => {
+        container.replaceWith(renderTaskDetail(project, task, tasksContainer, container));
+    });
     
     const leftPanel = document.createElement("div");
     leftPanel.classList.add("left-panel")
@@ -53,6 +55,54 @@ function renderTask(project, task, tasksContainer) {
 
     container.appendChild(leftPanel);
     container.appendChild(rightPanel);
+
+    return container;
+}
+
+function renderTaskDetail(project, task, tasksContainer, taskContainer) {
+    const container = document.createElement("div");
+    container.classList.add("task-detail");
+    
+    const title = createText(task.getTitle());
+    const titleDivider = document.createElement("hr");
+    const description = createText(task.getDescription());
+    const descriptionDivider = document.createElement("hr");
+    const date = createText(`Due: ${task.getDate()}`);
+    let priority = task.getPriority();
+    switch(priority) {
+        case 0:
+            priority = createText("Priority: Low");
+            break;
+        case 1:
+            priority = createText("Priority: Medium");
+            break;
+        case 2:
+            priority = createText("Priority: High");
+            break;
+        default:
+            priority = createText("Priority: Low");            
+            break;
+    };
+
+    const datePriorityContainer = document.createElement("div");
+    datePriorityContainer.appendChild(date);
+    datePriorityContainer.appendChild(priority);
+
+    const backButton = createButtonWithIcon("close", "Close");
+    backButton.addEventListener("click", () => {
+        container.replaceWith(taskContainer);
+    });
+
+    const closeButton = document.createElement("div");
+    closeButton.classList.add("btn-container", "right");
+    closeButton.appendChild(backButton);
+
+    container.appendChild(title);
+    container.appendChild(titleDivider);
+    container.appendChild(description);
+    container.appendChild(descriptionDivider);
+    container.appendChild(datePriorityContainer);
+    container.appendChild(closeButton);
 
     return container;
 }
@@ -90,7 +140,6 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
     priority.appendChild(mediumPriority);
     priority.appendChild(highPriority);
     const priorityContainer = document.createElement("div");
-    priorityContainer.classList.add("select-container");
     priorityContainer.appendChild(priorityLabel);
     priorityContainer.appendChild(priority);
 
@@ -107,7 +156,7 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
             alert("Task title can't be empty!");
             return;
         };
-        const newTask = project.addTask(title.value, description.value, date.value, +priority.value);
+        project.addTask(title.value, description.value, date.value, +priority.value);
         renderTasks(project, taskContainer);
         parentContainer.textContent = "";
         return parentContainer.appendChild(addTaskButton);
@@ -135,7 +184,7 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
 }
 
 function renderAddTaskButton(project, taskContainer, buttonContainer) {
-    const addTaskButton = createAddButton("Add Task");
+    const addTaskButton = createButtonWithIcon("add", "Add Task");
     addTaskButton.addEventListener("click", () => {
        renderAddTaskForm(project, taskContainer, buttonContainer);
     });

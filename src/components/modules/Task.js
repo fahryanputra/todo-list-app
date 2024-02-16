@@ -1,10 +1,10 @@
 class Task {
-    constructor(title, description = "No description", date = "No date", priority = 0) {
+    constructor(title) {
         this.id = Task.incrementId();
         this.title = title;
-        this.description = description;
-        this.date = date;
-        this.priority = priority;
+        this.description = "No description";
+        this.date = "No date";
+        this.priority = 0;
     };
 
     static incrementId() {

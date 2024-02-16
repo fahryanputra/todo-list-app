@@ -1,4 +1,4 @@
-import { createText, createIcon, createAddButton } from "Utilities/utility";
+import { createText, createIcon, createButtonWithIcon } from "Utilities/utility";
 import TodoList from "Modules/TodoList";
 import renderMain from "UI/Main";
 
@@ -80,7 +80,7 @@ function renderAddProjectButton(todoList, projectContainers) {
     const container = document.createElement("div");
     container.classList.add("btn-container");
 
-    const button = createAddButton("Add Project");
+    const button = createButtonWithIcon("add", "Add Project");
     button.addEventListener("click", () => {
         container.replaceWith(renderAddProjectForm(todoList, projectContainers));
     });

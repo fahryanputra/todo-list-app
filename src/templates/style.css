@@ -120,6 +120,10 @@ header .material-symbols-rounded {
     gap: 1rem;
 }
 
+.btn-container.right {
+    justify-content: flex-end;
+}
+
 .sidebar > .project-form > div > button {
     width: 50%;
 }
@@ -236,6 +240,23 @@ header .material-symbols-rounded {
     margin-left: auto;
 }
 
+.task-detail {
+    font-size: var(--font-small);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-small);
+}
+
+.hr {
+    border-top: 5px solid var(--font-dark);
+    border-radius: 5px;
+}
+
+.task-detail > div {
+    display: flex;
+    gap: var(--space-medium);
+}
+
 #task-form {
     font-size: var(--font-small);
     display: flex;
@@ -262,13 +283,6 @@ header .material-symbols-rounded {
 .date-priority-container > div {
     display: flex;
     flex-direction: column;
-}
-
-.radio-container {
-    margin-top: 0;
-    display: flex;
-    flex-direction: row;
-    gap: var(--space-small);
 }
 
 /* Footer */

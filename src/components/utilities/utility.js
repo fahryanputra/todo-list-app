@@ -42,14 +42,14 @@ function createIcon(name) {
 }
 
 // Create add button for task and projects
-function createAddButton(text) {
-    const icon = createIcon("add");
+function createButtonWithIcon(icon, text) {
+    const buttonIcon = createIcon(icon);
     const buttonText = createText(text);
     
     const button = document.createElement("button");
     button.setAttribute("class", "btn-add");
 
-    button.appendChild(icon);
+    button.appendChild(buttonIcon);
     button.appendChild(buttonText);
 
     return button;
@@ -85,7 +85,7 @@ export {
     createText,
     createImage,
     createIcon,
-    createAddButton,
+    createButtonWithIcon,
     createFormWithLabel,
     createDropDownOption,
 };
