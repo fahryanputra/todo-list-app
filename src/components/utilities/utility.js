@@ -57,17 +57,17 @@ function createButtonWithIcon(icon, text) {
 
 // Create form element with labels
 const createFormWithLabel = {
-    createForm(element, text) {
+    createForm(id, element) {
         const form = document.createElement(element);
-        form.setAttribute("id", `task-${text.toLocaleLowerCase()}`);
+        form.setAttribute("id", id);
 
         return form;
     },
 
-    createLabel(text) {
+    createLabel(id, text) {
         const titleLabel = document.createElement("label");
         titleLabel.textContent = text;
-        titleLabel.setAttribute("for", `task-${text.toLocaleLowerCase()}`);
+        titleLabel.setAttribute("for", id);
 
         return titleLabel;
     },
