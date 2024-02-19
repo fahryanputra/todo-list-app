@@ -1,4 +1,5 @@
 import { createText, createIcon, createButtonWithIcon, createDropDownOption, createFormWithLabel } from "Utilities/utility";
+import Storage from "Modules/Storage";
 
 function renderMain(project) {
     const main = document.querySelector(".main");

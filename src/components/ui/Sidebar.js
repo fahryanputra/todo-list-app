@@ -2,7 +2,7 @@ import { createText, createIcon, createButtonWithIcon } from "Utilities/utility"
 import Storage from "Modules/Storage";
 import renderMain from "UI/Main";
 
-function renderSidebar(storage, todoList) {
+function renderSidebar(todoList) {
     const defaultProjectContainer = renderProjectContainer("default");
     const customProjectContainer = renderProjectContainer("custom");
     const projectContainers = [];
@@ -10,11 +10,11 @@ function renderSidebar(storage, todoList) {
     projectContainers.push(defaultProjectContainer);
     projectContainers.push(customProjectContainer);
 
-    const projects = renderProjects(storage, todoList, projectContainers);
+    const projects = renderProjects(todoList, projectContainers);
 
     const divider = createText("Projects");
     
-    const addProjectContainer = renderAddProjectButton(storage, todoList, projectContainers);
+    const addProjectContainer = renderAddProjectButton(todoList, projectContainers);
 
     const sidebar = document.querySelector(".sidebar");
     sidebar.appendChild(projects[0]);
@@ -41,7 +41,7 @@ function renderProject(title, icon) {
     return container;
 }
 
-function renderProjects(storage, todoList, projectContainers) {
+function renderProjects(todoList, projectContainers) {
     projectContainers.forEach(element => {
         element.textContent = "";
     });
@@ -63,8 +63,8 @@ function renderProjects(storage, todoList, projectContainers) {
                 e.stopPropagation();
                 renderMain(todoList.getProject("Inbox"));
                 todoList.deleteProject(element.getName());
-                storage.saveTodoList(todoList);
-                projectContainers[1].replaceWith(renderProjects(storage, todoList, projectContainers)[1])
+                Storage.deleteProject(element.getName());
+                projectContainers[1].replaceWith(renderProjects(todoList, projectContainers)[1])
             });
 
             project.appendChild(deleteContainer);
@@ -75,13 +75,13 @@ function renderProjects(storage, todoList, projectContainers) {
     return projectContainers;
 }
 
-function renderAddProjectButton(storage, todoList, projectContainers) {
+function renderAddProjectButton(todoList, projectContainers) {
     const container = document.createElement("div");
     container.classList.add("btn-container");
 
     const button = createButtonWithIcon("add", "Add Project");
     button.addEventListener("click", () => {
-        container.replaceWith(renderAddProjectForm(storage, todoList, projectContainers));
+        container.replaceWith(renderAddProjectForm(todoList, projectContainers));
     });
 
     container.appendChild(button);
@@ -89,7 +89,7 @@ function renderAddProjectButton(storage, todoList, projectContainers) {
     return container;
 }
 
-function renderAddProjectForm(storage, todoList, projectContainers) {
+function renderAddProjectForm(todoList, projectContainers) {
     const container = document.createElement("div");
     container.classList.add("project-form");
 
@@ -108,10 +108,9 @@ function renderAddProjectForm(storage, todoList, projectContainers) {
             alert("Project already exists!");
             return;
         };
-        storage.saveTodoList(todoList);
-        console.log(localStorage);
-        renderProjects(storage, todoList, projectContainers);
-        return container.replaceWith(renderAddProjectButton(storage,todoList, projectContainers));
+        Storage.addProject(title.value);
+        renderProjects(todoList, projectContainers);
+        return container.replaceWith(renderAddProjectButton(todoList, projectContainers));
     });
 
     const cancelButton = document.createElement("button");

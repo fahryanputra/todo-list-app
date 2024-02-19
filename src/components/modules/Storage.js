@@ -3,11 +3,11 @@ import Project from "Modules/Project";
 import Task from "Modules/Task";
 
 class Storage {
-    saveTodoList(data) {
+    static saveTodoList(data) {
         return localStorage.setItem("todoList", JSON.stringify(data));
     };
 
-    getTodoList() {
+    static getTodoList() {
         const todoList = Object.assign(
             new TodoList(),
             JSON.parse(localStorage.getItem('todoList'))
@@ -28,28 +28,28 @@ class Storage {
         return todoList;
     };
 
-    addProject(project) {
+    static addProject(project) {
         const todoList = Storage.getTodoList();
         todoList.addProject(project);
         return Storage.saveTodoList(todoList);
     };
 
-    deleteProject(project) {
+    static deleteProject(project) {
         const todoList = Storage.getTodoList();
         todoList.deleteProject(project);
         return Storage.saveTodoList(todoList);
     };
 
-    addTask(project, task) {
+    static addTask(project, task) {
         const todoList = Storage.getTodoList();
         todoList.getProject(project).addTask(task);
         return Storage.saveTodoList(todoList);
     };
 
-    deleteTask(project, task) {
+    static deleteTask(project, task) {
         const todoList = Storage.getTodolist();
         todoList.getProject(project).deleteTask(task);
-        return Storage.saveTodoList(todoList);
+        return Storage.saveTodoList(todoList)
     };
 };
 
