@@ -241,7 +241,6 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
         }
 
         Storage.addTask(project.getName(), title.value);
-        console.log(localStorage);
         renderTasks(project, taskContainer);
         parentContainer.textContent = "";
         return parentContainer.appendChild(addTaskButton);

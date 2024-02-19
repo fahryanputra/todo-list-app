@@ -33,9 +33,13 @@ class Project {
         return this.icon
     };
 
-    getTask(taskId) {
-        return this.tasks.find((task) => task.getId() === taskId);
+    getTask(taskTitle) {
+        return this.tasks.find((task) => task.getTitle() === taskTitle);
     };
+
+    getTaskById(taskId) {
+        return this.tasks.find((task) => task.getId() === taskId);
+    }
 
     // Setter
     setName(name) {

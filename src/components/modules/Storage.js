@@ -54,11 +54,15 @@ class Storage {
 
     static editTask(projectName, taskId, title, description, date, priority) {
         const todoList = Storage.getTodoList();
-        const task = todoList.getProject(projectName).getTask(taskId);
+        const task = todoList.getProject(projectName).getTaskById(taskId);
 
         task.setTitle(title);
         task.setDescription(description);
-        task.setDate(date);
+        if(date === "") {
+            task.setDate("No date");
+        } else {
+            task.setDate(date);
+        }
         task.setPriority(priority);
 
         return Storage.saveTodoList(todoList);
