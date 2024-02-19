@@ -40,16 +40,28 @@ class Storage {
         return Storage.saveTodoList(todoList);
     };
 
-    static addTask(project, task) {
+    static addTask(projectName, taskName) {
         const todoList = Storage.getTodoList();
-        todoList.getProject(project).addTask(task);
+        todoList.getProject(projectName).addTask(taskName);
         return Storage.saveTodoList(todoList);
     };
 
-    static deleteTask(project, task) {
-        const todoList = Storage.getTodolist();
-        todoList.getProject(project).deleteTask(task);
+    static deleteTask(projectName, taskId) {
+        const todoList = Storage.getTodoList();
+        todoList.getProject(projectName).deleteTask(taskId);
         return Storage.saveTodoList(todoList)
+    };
+
+    static editTask(projectName, taskId, title, description, date, priority) {
+        const todoList = Storage.getTodoList();
+        const task = todoList.getProject(projectName).getTask(taskId);
+
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setDate(date);
+        task.setPriority(priority);
+
+        return Storage.saveTodoList(todoList);
     };
 };
 

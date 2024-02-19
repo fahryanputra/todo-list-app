@@ -161,6 +161,7 @@ function renderEditTaskForm(project, task, detailContainer, tasksContainer) {
         task.setDescription(description.value);
         task.setDate(date.value);
         task.setPriority(priority.value);
+        Storage.editTask(project.getName(), task.getId(), title.value, description.value, date.value, priority.value);
         container.replaceWith(renderTask(project, task, tasksContainer));
     });
 
@@ -239,6 +240,8 @@ function renderAddTaskForm(project, taskContainer, parentContainer) {
             task.setPriority(priority.value);
         }
 
+        Storage.addTask(project.getName(), title.value);
+        console.log(localStorage);
         renderTasks(project, taskContainer);
         parentContainer.textContent = "";
         return parentContainer.appendChild(addTaskButton);
@@ -275,6 +278,7 @@ function renderAddTaskButton(project, taskContainer, buttonContainer) {
 }
 
 function deleteTask(project, task, container) {
+    Storage.deleteTask(project.getName(), task.getId());
     project.deleteTask(task.getId());
     renderTasks(project, container);
 }
