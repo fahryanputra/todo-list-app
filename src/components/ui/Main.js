@@ -99,7 +99,7 @@ function renderTaskDetail(project, task, tasksContainer, taskContainer) {
     return container;
 }
 
-function renderEditTaskForm(project, task, detailContainer, tasksContainer, taskContainer) {
+function renderEditTaskForm(project, task, detailContainer, tasksContainer) {
     const container = document.createElement("div");
     container.classList.add("task-form");
 
