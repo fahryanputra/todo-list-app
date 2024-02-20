@@ -9,9 +9,9 @@
     --font-large: 38px;
     --icon-large: 40px;
     --icon-small: 24px;
-    --background-dark: #333;
-    --background-light: #eee;
-    --background-secondary-light: #ccc;
+    --background-dark: #424874;
+    --background-light: #F4EEFF;
+    --background-secondary-light: #DCD6F7;
     --font-light: #eee;
     --font-dark: #333
 }
@@ -106,11 +106,15 @@ header .material-symbols-rounded {
     gap: 5px;
 }
 
-.sidebar > .project-form > input {
+input, textarea, select {
     width: 100%;
     font-size: var(--font-small);
     border: 2px solid var(--font-dark);
     border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
 }
 
 .btn-container {
